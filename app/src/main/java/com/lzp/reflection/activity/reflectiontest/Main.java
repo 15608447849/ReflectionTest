@@ -11,8 +11,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsoluteLayout;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.lzp.reflection.activity.reflectiontest.Beans.DataList;
@@ -27,22 +27,27 @@ public class Main extends AppCompatActivity {
         setContentView(R.layout.activity_main);
        // init();
 
-
         RelativeLayout rl = (RelativeLayout) LayoutInflater.from(this).inflate(R.layout.activity_main,null);
         RelativeLayout.LayoutParams rlp=new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT,
                 RelativeLayout.LayoutParams.WRAP_CONTENT);
         rlp.addRule(RelativeLayout.CENTER_IN_PARENT);
         ImageView iv = new ImageView(this);
-        rl.addView(iv,rlp);
+       // rl.addView(iv,rlp);
 
-        Bitmap bitmap = makeTextBitmap.makeTextBitmap("李世平","汉仪大宋简体","#000000","#ffffff",24);
+        Bitmap bitmap = makeTextBitmap.makeTextBitmap(" - - - - - -  -123- - - -  - - ","汉仪大宋简体","#000000","#ffffff",24);
         BitmapDrawable bd = new BitmapDrawable(bitmap);
 
         iv.setImageDrawable(bd);
 
         iv2 = (ImageView) findViewById(R.id.iv);
-        iv2.setImageDrawable(bd);
+        AbsoluteLayout layout = (AbsoluteLayout)findViewById(R.id.llt);
+        ;
 
+        iv2.setImageDrawable(bd);
+        AbsoluteLayout.LayoutParams lp = (AbsoluteLayout.LayoutParams) iv2.getLayoutParams();
+        lp.x = - 249;
+
+        iv2.setLayoutParams(lp);
 
 
     }
@@ -68,7 +73,7 @@ public void move(View v){
 
     RelativeLayout viewGroup = (RelativeLayout) LayoutInflater.from(this).inflate(R.layout.activity_main,null);
 
-    LinearLayout layout = (LinearLayout)findViewById(R.id.llt);
+    AbsoluteLayout layout = (AbsoluteLayout)findViewById(R.id.llt);
 
 //   int w =  viewGroup.getLayoutParams().width;
     w = layout.getLayoutParams().width;
@@ -94,8 +99,13 @@ public void move(View v){
 
 
     private void repertText(){
+
+        int ww = iv2.getLayoutParams().width;
+
+        int www = iv2.getWidth();
+
         ObjectAnimator animator =
-                ObjectAnimator.ofFloat(iv2,"translationX",-iv2.getLayoutParams().width,w+iv2.getLayoutParams().width);
+                ObjectAnimator.ofFloat(iv2,"translationX",0,w+www);
         animator.setDuration(15*1000);
         animator.setRepeatCount(ValueAnimator.INFINITE);
         //animator.setInterpolator(new LinearOutSlowInInterpolator());
